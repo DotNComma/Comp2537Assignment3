@@ -1,6 +1,7 @@
 let count = 3;
 let timer = 30;
 let winner = false;
+let loser = false;
 let powerUp = false;
 let darkMode = "outline-";
 
@@ -12,6 +13,8 @@ function reset()
   gameGrid.innerHTML = '';
   header.innerHTML = '';
   status.innerHTML = '';
+  winner = false;
+  loser = false;
 
   startUp();
   loadPokemonCards();
@@ -117,7 +120,7 @@ async function setup () {
   let clicks = 0;
   let boardLocked = false;
   $(".card1").on(("click"), async function click() {
-    if(boardLocked) return;
+    if(boardLocked || loser) return;
 
     const clicksDiv = document.getElementById("numClicks");
     clicksDiv.textContent = ++clicks;
@@ -191,6 +194,7 @@ function win()
 
 function lose()
 {
+  loser = true;
   const container = document.getElementById("status");
   const content = `
     <h3 class="container d-flex justify-content-center">GAME OVER!</h3>
